@@ -18,7 +18,7 @@ function NewsCard(props) {
     const classes = useStyles();
     const data = props.newsData;
     return (
-        <Card className={classes.root}>
+        <Card className={classes.root} variant="outlined">
             <CardHeader
                 avatar={
                     <Avatar aria-label="recipe" className={classes.avatar}>

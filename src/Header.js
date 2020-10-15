@@ -1,13 +1,26 @@
-import {Button, AppBar, Toolbar, IconButton, Typography} from "@material-ui/core";
+import {Button, AppBar, Toolbar, Typography} from "@material-ui/core";
 import React from "react";
+// import {makeStyles} from "@material-ui/core/styles";
+import HeaderDrawer from "./HeaderDrawer";
 
+
+// const useStyles = makeStyles((theme) => ({
+//     root: {
+//         flexGrow: 1,
+//     },
+//
+//     title: {
+//         flexGrow: 1,
+//     },
+// }));
 
 function Header() {
+
     return (
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start">
-                </IconButton>
+                <HeaderDrawer>
+                </HeaderDrawer>
                 <Typography variant="h6">
                     News
                 </Typography>
