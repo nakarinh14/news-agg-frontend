@@ -3,6 +3,7 @@ import {Grid, Button} from "@material-ui/core";
 import Header from "./Header";
 import './App.css';
 import NewsPost from "./NewsPost";
+import {makeStyles} from "@material-ui/core/styles";
 
 const news_list = [
     {
@@ -42,9 +43,16 @@ const news_list = [
     }
 ]
 
+const useStyles = makeStyles((theme) => ({
+    root: {
+        backgroundColor: theme.palette.background.default,
+    },
+}));
+
 function App() {
+    const classes = useStyles();
     return (
-        <div className="App">
+        <div className={classes.root}>
             <Grid>
                 <Grid>
                     <Header />

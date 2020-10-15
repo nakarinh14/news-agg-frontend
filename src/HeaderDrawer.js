@@ -11,8 +11,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
-import MenuIcon from "@material-ui/icons/Menu";
-
+import Toolbar from "@material-ui/core/Toolbar";
 
 const drawerWidth = 240;
 
@@ -29,14 +28,13 @@ const useStyles = makeStyles((theme) => ({
     },
     drawerPaper: {
         width: drawerWidth,
+        backgroundColor: theme.palette.background.default,
     },
-    drawerHeader: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: theme.spacing(0, 1),
-        // necessary for content to be below app bar
-        ...theme.mixins.toolbar,
-        justifyContent: 'flex-end',
+    drawerContainer: {
+        overflow: 'auto',
+    },
+    icon: {
+      // color: theme.palette.primary.light
     },
     content: {
         flexGrow: 1,
@@ -58,48 +56,32 @@ const useStyles = makeStyles((theme) => ({
 
 function HeaderDrawer(){
     const classes = useStyles();
-    const theme = useTheme();
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = React.useState(true);
     const handleDrawerOpen = () => {
         setOpen(true);
     };
-
     const handleDrawerClose = () => {
         setOpen(false);
     };
 
     return (
-        <React.Fragment>
-            <IconButton
-                edge="start"
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="menu"
-                onClick={handleDrawerOpen}
-            >
-                <MenuIcon />
-            </IconButton>
-            <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="left"
-                onEscapeKeyDown={handleDrawerClose}
-                onBackdropClick={handleDrawerClose}
-                open={open}
-                classes={{
-                    paper: classes.drawerPaper,
-                }}
-            >
-                <div className={classes.drawerHeader}>
-                    <IconButton onClick={handleDrawerClose}>
-                        {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-                    </IconButton>
-                </div>
-                <Divider />
+        <Drawer
+            className={classes.drawer}
+            variant="persistent"
+            classes={{
+                paper: classes.drawerPaper,
+            }}
+            open={open}
+        >
+            <Toolbar />
+            <div className={classes.drawerContainer}>
                 <List>
                     {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
                         <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemIcon
+                                className={classes.icon}
+                            >
+                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}
@@ -108,13 +90,16 @@ function HeaderDrawer(){
                 <List>
                     {['All mail', 'Trash', 'Spam'].map((text, index) => (
                         <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                            <ListItemIcon
+                                className={classes.icon}
+                            >
+                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                             <ListItemText primary={text} />
                         </ListItem>
                     ))}
                 </List>
-            </Drawer>
-        </React.Fragment>
+            </div>
+        </Drawer>
     )
 }
 
