@@ -20,11 +20,6 @@ function NewsCard(props) {
     return (
         <Card className={classes.root} variant="outlined">
             <CardHeader
-                avatar={
-                    <Avatar aria-label="recipe" className={classes.avatar}>
-                        R
-                    </Avatar>
-                }
                 title={data.title}
                 subheader={data.date}>
 
@@ -39,7 +34,7 @@ function NewsCard(props) {
             <CardContent>
                 <Typography
                     variant="caption">
-                    {data.desc}
+                    {data.publisher}
                 </Typography>
             </CardContent>
         </Card>

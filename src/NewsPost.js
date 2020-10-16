@@ -12,7 +12,12 @@ function NewsPost(props) {
         </Grid>
     );
     return (
-        <Grid container direction="column" alignItems="center" spacing={2}>
+        <Grid container
+              direction="column"
+              alignItems="center"
+              spacing={3}
+              xs={12}
+        >
             {newsItems}
         </Grid>
     );
