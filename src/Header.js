@@ -19,12 +19,19 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
+
+
 function Header() {
     const classes = useStyles();
+    const [open, setOpen] = React.useState(true);
+    const toggleDrawer = () => {
+        setOpen(!open);
+    };
+
     return (
         <React.Fragment>
             <AppBar
-                position="sticky"
+                position="fixed"
                 className={classes.appBar}
             >
                 <Toolbar>
@@ -33,7 +40,7 @@ function Header() {
                         className={classes.menuButton}
                         color="inherit"
                         aria-label="menu"
-                        // onClick={true}
+                        onClick={toggleDrawer}
                     >
                         <MenuIcon />
                     </IconButton>
@@ -43,7 +50,10 @@ function Header() {
                     <Button color="inherit">Login</Button>
                 </Toolbar>
             </AppBar>
-            <HeaderDrawer>
+            <Toolbar />
+            <HeaderDrawer
+                open={open}
+            >
             </HeaderDrawer>
         </React.Fragment>
     );

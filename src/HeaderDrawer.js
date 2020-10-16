@@ -1,17 +1,15 @@
 import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
-import {makeStyles, useTheme} from "@material-ui/core/styles";
-import IconButton from "@material-ui/core/IconButton";
+import {makeStyles} from "@material-ui/core/styles";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import Divider from "@material-ui/core/Divider";
 import List from "@material-ui/core/List";
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
-import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
-import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import Toolbar from "@material-ui/core/Toolbar";
+import WebIcon from '@material-ui/icons/Web';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import BookmarksIcon from '@material-ui/icons/Bookmarks';
 
 const drawerWidth = 240;
 
@@ -54,15 +52,8 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function HeaderDrawer(){
+function HeaderDrawer(props){
     const classes = useStyles();
-    const [open, setOpen] = React.useState(true);
-    const handleDrawerOpen = () => {
-        setOpen(true);
-    };
-    const handleDrawerClose = () => {
-        setOpen(false);
-    };
 
     return (
         <Drawer
@@ -71,32 +62,53 @@ function HeaderDrawer(){
             classes={{
                 paper: classes.drawerPaper,
             }}
-            open={open}
+            open={props.open}
         >
             <Toolbar />
             <div className={classes.drawerContainer}>
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon
-                                className={classes.icon}
-                            >
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem button key={"All News"}>
+                        <ListItemIcon>
+                            <WebIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Recent News"} />
+                    </ListItem>
+                    <ListItem button key={"Breaking News"}>
+                        <ListItemIcon>
+                            <WhatshotIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Hot News"} />
+                    </ListItem>
                 </List>
                 <Divider />
                 <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon
-                                className={classes.icon}
-                            >
-                                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
+                    <ListItem button key={"Bookmarks"}>
+                        <ListItemIcon>
+                            <BookmarksIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Bookmarks"} />
+                    </ListItem>
+                </List>
+                <Divider />
+                <List>
+                    <ListItem button key={"Thairath"}>
+                        <ListItemIcon>
+                            <BookmarksIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Thairath"} />
+                    </ListItem>
+                    <ListItem button key={"Sanook"}>
+                        <ListItemIcon>
+                            <BookmarksIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Sanook News"} />
+                    </ListItem>
+                    <ListItem button key={"PostToday"}>
+                        <ListItemIcon>
+                            <BookmarksIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"Post Today"} />
+                    </ListItem>
                 </List>
             </div>
         </Drawer>
