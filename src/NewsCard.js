@@ -66,7 +66,7 @@ function NewsCard(props) {
                 <CardMedia
                     className={classes.media}
                     image={data.img}
-                    title="Contemplative Reptile"
+                    title={`${data.url} - ${data.title}`}
                 />
             </CardActionArea>
         </Card>

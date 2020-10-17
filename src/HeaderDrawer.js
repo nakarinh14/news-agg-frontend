@@ -10,6 +10,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import WebIcon from '@material-ui/icons/Web';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import {Link} from "react-router-dom"
 
 const drawerWidth = 240;
 
@@ -67,13 +68,13 @@ function HeaderDrawer(props){
             <Toolbar />
             <div className={classes.drawerContainer}>
                 <List>
-                    <ListItem button key={"All News"}>
+                    <ListItem button key="recent" component={Link} to="/">
                         <ListItemIcon>
                             <WebIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Recent News"} />
                     </ListItem>
-                    <ListItem button key={"Breaking News"}>
+                    <ListItem button key="hot" component={Link} to="/hot">
                         <ListItemIcon>
                             <WhatshotIcon />
                         </ListItemIcon>
@@ -82,7 +83,7 @@ function HeaderDrawer(props){
                 </List>
                 <Divider />
                 <List>
-                    <ListItem button key={"Bookmarks"}>
+                    <ListItem button key="bookmarks" component={Link} to="/bookmarks">
                         <ListItemIcon>
                             <BookmarksIcon />
                         </ListItemIcon>
@@ -91,19 +92,19 @@ function HeaderDrawer(props){
                 </List>
                 <Divider />
                 <List>
-                    <ListItem button key={"Thairath"}>
+                    <ListItem button key="thairath">
                         <ListItemIcon>
                             <BookmarksIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Thairath"} />
                     </ListItem>
-                    <ListItem button key={"Sanook"}>
+                    <ListItem button key="sanook">
                         <ListItemIcon>
                             <BookmarksIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Sanook News"} />
                     </ListItem>
-                    <ListItem button key={"PostToday"}>
+                    <ListItem button key="posttoday">
                         <ListItemIcon>
                             <BookmarksIcon />
                         </ListItemIcon>
