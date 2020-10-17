@@ -19,8 +19,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
-
 function Header() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(true);

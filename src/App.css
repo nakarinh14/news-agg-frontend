@@ -1,3 +1,25 @@
+@font-face {
+  font-family: 'Kanit';
+  font-weight: 300;
+  src: local('Kanit'), url(./fonts/Kanit-Light.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Kanit';
+  font-weight: 400;
+  src: local('Kanit'), url(./fonts/Kanit-Regular.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Kanit';
+  font-weight: 500;
+  src: local('Kanit'), url(./fonts/Kanit-Medium.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Kanit';
+  font-weight: 600;
+  src: local('Kanit'), url(./fonts/Kanit-SemiBold.ttf) format('truetype');
+}
+
+
 .App {
   text-align: center;
 }
