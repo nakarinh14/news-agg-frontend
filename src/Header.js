@@ -1,9 +1,10 @@
-import {Button, AppBar, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Toolbar, Typography} from "@material-ui/core";
 import React from "react";
 import {makeStyles} from "@material-ui/core/styles";
 import HeaderDrawer from "./HeaderDrawer";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import Spring from "./LoginModal";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,7 +45,7 @@ function Header() {
                     <Typography variant="h6">
                         News
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    <Spring />
                 </Toolbar>
             </AppBar>
             <Toolbar />
