@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSpring, animated } from 'react-spring/web.cjs';
-import Login from "./routes/Login";
+import Login from "../routes/Login";
 import {Button} from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog"; // web.cjs is required for IE 11 support
 

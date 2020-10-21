@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
-import NewsCard from "../NewsCard";
+import NewsCard from "../components/NewsCard";
 import axios from 'axios';
 // import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -127,7 +127,6 @@ function NewsPost() {
               direction="column"
               alignItems="center"
               spacing={3}
-              xs={12}
         >
             {
                 posts.map((post, index) =>

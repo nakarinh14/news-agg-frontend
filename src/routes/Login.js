@@ -11,6 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
+import {useAuthStateContext} from "../context/auth-context";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -46,6 +47,7 @@ function Login() {
     const handleChangeUsername = e => {
         setUsername(e.target.value)
     }
+    const authStateContext = useAuthStateContext()
     const postLogin = () => {
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`,
             {
@@ -53,7 +55,7 @@ function Login() {
                 password: password
                })
             .then(res => {
-                console.log(res)
+                authStateContext.setAuth(true)
             })
             .catch(err => {
                 console.log(err)
