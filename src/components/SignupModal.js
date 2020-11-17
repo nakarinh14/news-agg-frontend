@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import { useSpring, animated } from 'react-spring/web.cjs';
-import Login from "./Login";
 import {Button} from "@material-ui/core";
-import Dialog from "@material-ui/core/Dialog"; // web.cjs is required for IE 11 support
+import Dialog from "@material-ui/core/Dialog";
+import Signup from "./Signup"; // web.cjs is required for IE 11 support
 
 const useStyles = makeStyles(() => ({
     dialog: {
@@ -50,7 +50,7 @@ Fade.propTypes = {
     onExited: PropTypes.func,
 };
 
-export default function LoginModal() {
+export default function SignupModal() {
     const classes = useStyles();
     const [open, setOpen] = React.useState(false);
 
@@ -65,7 +65,7 @@ export default function LoginModal() {
     return (
         <>
             <Button type="button" onClick={handleOpen}>
-                Sign In
+                Sign Up
             </Button>
             <Dialog
                 aria-labelledby="spring-modal-title"
@@ -74,7 +74,9 @@ export default function LoginModal() {
                 open={open}
                 onClose={handleClose}
             >
-                <Login />
+                {/*<Fade in={open}>*/}
+                <Signup />
+                {/*</Fade>*/}
             </Dialog>
         </>
     );

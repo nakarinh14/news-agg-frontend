@@ -4,8 +4,9 @@ import {makeStyles} from "@material-ui/core/styles";
 import HeaderDrawer from "./HeaderDrawer";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import LoginModal from "./LoginModal";
-import {AuthStateContext} from "../context/auth-context";
+import {AuthStateContext} from "../utilities/auth";
+import LoggedInHeader from "./LoggedInHeader";
+import LoggedOutHeader from "./LoggedOutHeader";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -29,7 +30,7 @@ function Header() {
     };
 
     return (
-        <React.Fragment>
+        <>
             <AppBar
                 position="fixed"
                 className={classes.appBar}
@@ -44,10 +45,10 @@ function Header() {
                     >
                         <MenuIcon />
                     </IconButton>
-                    <Typography variant="h6">
+                    <Typography variant="h6" className={classes.title}>
                         News
                     </Typography>
-                    {authStateContext.authState ? <b>This is working</b> : <LoginModal />}
+                    {authStateContext.authReduced.state ? <LoggedInHeader /> : <LoggedOutHeader />}
                 </Toolbar>
             </AppBar>
             <Toolbar />
@@ -55,7 +56,7 @@ function Header() {
                 open={open}
             >
             </HeaderDrawer>
-        </React.Fragment>
+        </>
     );
 }
 

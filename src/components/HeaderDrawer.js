@@ -10,6 +10,7 @@ import Toolbar from "@material-ui/core/Toolbar";
 import WebIcon from '@material-ui/icons/Web';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import BookmarksIcon from '@material-ui/icons/Bookmarks';
+import HistoryIcon from '@material-ui/icons/History';
 import {Link} from "react-router-dom"
 
 const drawerWidth = 240;
@@ -88,6 +89,12 @@ function HeaderDrawer(props){
                             <BookmarksIcon />
                         </ListItemIcon>
                         <ListItemText primary={"Bookmarks"} />
+                    </ListItem>
+                    <ListItem button key="history" component={Link} to="/history">
+                        <ListItemIcon>
+                            <HistoryIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={"History"} />
                     </ListItem>
                 </List>
                 <Divider />
