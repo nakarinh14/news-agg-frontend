@@ -42,6 +42,7 @@ function NewsCard(props) {
     const postBookmark = (route, cond) => {
         axios.post(`${process.env.REACT_APP_BACKEND_URL}${route}`,
             {
+
                 news_id: data.id
             }, {withCredentials: true})
             .then(() => {

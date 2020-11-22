@@ -1,11 +1,11 @@
 import React, {useEffect, useRef, useState} from 'react';
 import Grid from "@material-ui/core/Grid";
-import NewsCard from "../components/NewsCard";
+import NewsCard from "../components/feed/NewsCard";
 import axios from 'axios';
 import {Typography} from "@material-ui/core";
-import parseDate from "../utilities/parseDate";
+import date_util from "../utilities/date_util";
+import getFilterPublishers from "../utilities/filters_util";
 // import CircularProgress from "@material-ui/core/CircularProgress";
-
 
 function NewsPost() {
     const [posts, setPosts] = useState([])
@@ -40,11 +40,11 @@ function NewsPost() {
         const fetchNews = () => {
             const current_date = new Date();
             axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/news`,
-                {params: {page: page, limit: 20}, withCredentials: true}
+                {params: {publishers: getFilterPublishers() , page: page, limit: 20}, withCredentials: true}
                 )
                 .then(res => {
                     const requestedData = res.data
-                    requestedData.forEach(data => data.timestamp = parseDate(current_date, new Date(data.timestamp)))
+                    requestedData.forEach(data => data.timestamp = date_util(current_date, new Date(data.timestamp)))
                     setPosts(curr_posts => curr_posts.concat(requestedData))
                 })
                 .catch(err => {
@@ -67,7 +67,6 @@ function NewsPost() {
                     align="left"
                     variant="h4"
                     style={{marginTop: 10, fontWeight: 500}} >Recent News</Typography>
-
             </Grid>
             {
                 posts.map((post, index) =>
