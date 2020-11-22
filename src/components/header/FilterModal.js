@@ -9,22 +9,15 @@ import ListItemText from "@material-ui/core/ListItemText";
 import List from "@material-ui/core/List";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
+import getFilterPublishers from "../../utilities/filters_util";
 
-const getFilter = () => {
-    const tmp = localStorage.getItem("publisherFilters");
-    if(tmp){
-        return new Set(JSON.parse(tmp));
-    } else {
-        return new Set(["thairath", "posttoday", "blognone", "matichon"]);
-    }
-}
 function FilterModal(props) {
     // localStorage.removeItem("publisherFilters");
     const publishers = [["thairath", "Thairath | ไทยรัฐ"] ,
         ["posttoday", "PostToday | โพสต์ทูเดย์"],
         ["blognone", "Blognone"],
         ["matichon","Matichon | มติชน"]]
-    const tempFilter = getFilter();
+    const tempFilter = new Set(getFilterPublishers());
     const [filterList, setFilter] = useState(publishers.map(publisher => tempFilter.has(publisher[0])))
 
     const handleToggle = (idx) => () => {
@@ -42,6 +35,7 @@ function FilterModal(props) {
             }
         })
         localStorage.setItem("publisherFilters", JSON.stringify(tmp));
+        window.location.reload(false);
     }
 
     return (
