@@ -4,9 +4,12 @@ import {makeStyles} from "@material-ui/core/styles";
 import HeaderDrawer from "./HeaderDrawer";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import {AuthStateContext} from "../utilities/auth";
-import LoggedInHeader from "./LoggedInHeader";
-import LoggedOutHeader from "./LoggedOutHeader";
+import {AuthStateContext} from "../../utilities/auth_util";
+import LoggedInHeader from "./auth/LoggedInHeader";
+import LoggedOutHeader from "./auth/LoggedOutHeader";
+import FilterModal from "./FilterModal";
+import TuneIcon from "@material-ui/icons/Tune";
+import NightsStayIcon from "@material-ui/icons/NightsStay";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -19,11 +22,21 @@ const useStyles = makeStyles((theme) => ({
     title: {
         flexGrow: 1,
     },
+    tuneOption: {
+        paddingRight: theme.spacing(1),
+    },
 }));
 
 function Header() {
     const classes = useStyles();
     const [open, setOpen] = useState(true);
+    const [openFilter, setOpenFilter] = useState(false);
+    const handleFilterOpen = () => {
+        setOpenFilter(true);
+    }
+    const handleFilterClose = () => {
+        setOpenFilter(false);
+    }
     const authStateContext = useContext(AuthStateContext)
     const toggleDrawer = () => {
         setOpen(!open);
@@ -31,6 +44,12 @@ function Header() {
 
     return (
         <>
+            <FilterModal
+                open={openFilter}
+                setClose={handleFilterClose}
+            >
+                tmp
+            </FilterModal>
             <AppBar
                 position="fixed"
                 className={classes.appBar}
@@ -43,15 +62,27 @@ function Header() {
                         aria-label="menu"
                         onClick={toggleDrawer}
                     >
-                        <MenuIcon />
+                        <MenuIcon/>
                     </IconButton>
                     <Typography variant="h6" className={classes.title}>
                         News
                     </Typography>
-                    {authStateContext.authReduced.state ? <LoggedInHeader /> : <LoggedOutHeader />}
+
+                    <IconButton
+                        onClick={handleFilterOpen}
+                    >
+                        <TuneIcon/>
+                    </IconButton>
+                    <IconButton
+                        className={classes.tuneOption}
+                    >
+                        <NightsStayIcon/>
+                    </IconButton>
+
+                    {authStateContext.authReduced.state ? <LoggedInHeader/> : <LoggedOutHeader/>}
                 </Toolbar>
             </AppBar>
-            <Toolbar />
+            <Toolbar/>
             <HeaderDrawer
                 open={open}
             >
