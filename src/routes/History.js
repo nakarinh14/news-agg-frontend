@@ -2,8 +2,8 @@ import React, {useEffect, useState} from "react";
 import axios from "axios";
 import Grid from "@material-ui/core/Grid";
 import {Typography} from "@material-ui/core";
-import parseDate from "../utilities/parseDate";
-import NewsCardSm from "../components/NewsCardSm";
+import date_util from "../utilities/date_util";
+import NewsCardSm from "../components/feed/NewsCardSm";
 
 function History(){
     const [posts, setPosts] = useState([]);
@@ -16,7 +16,7 @@ function History(){
             )
                 .then(res => {
                     const requestedData = res.data;
-                    requestedData.forEach(data => data.last_access = parseDate(current_date, new Date(data.last_access)));
+                    requestedData.forEach(data => data.last_access = date_util(current_date, new Date(data.last_access)));
                     setPosts(curr_posts => curr_posts.concat(requestedData))
                 })
                 .catch(err => {

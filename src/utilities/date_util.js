@@ -1,4 +1,4 @@
-export default function parseDate(currDate, newsDate){
+export default function date_util(currDate, newsDate){
     const diff = (currDate.getTime() - newsDate.getTime())/1000;
     const day = diff/(3600*24);
     if(day > 1) return `${Math.floor(day)} days ago`
