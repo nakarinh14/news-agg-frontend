@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => ({
     content:{
         display: 'flex',
         flexDirection: 'column',
-        width: 500,
+        width: 450,
     },
     media: {
         width: 130
@@ -128,7 +128,7 @@ function NewsCardSm(props) {
                             display='inline'
                             variant="subtitle2"
                         >
-                            Visit {data.last_access}
+                            {data.timestamp}
                         </Typography>
                     </div>
                 </CardContent>
