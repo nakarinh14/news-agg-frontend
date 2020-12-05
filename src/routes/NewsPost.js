@@ -5,9 +5,18 @@ import axios from 'axios';
 import {Typography} from "@material-ui/core";
 import date_util from "../utilities/date_util";
 import getFilterPublishers from "../utilities/filters_util";
+import {makeStyles} from "@material-ui/core/styles";
 // import CircularProgress from "@material-ui/core/CircularProgress";
 
+const useStyles = makeStyles((theme) => ({
+    bg: {
+        backgroundColor: theme.palette.background.default
+    },
+}));
+
+
 function NewsPost() {
+    const classes = useStyles();
     const [posts, setPosts] = useState([])
     const [page, setPage] = useState(1);
     const loader = useRef(null);
@@ -58,15 +67,20 @@ function NewsPost() {
         <Grid container
               direction="column"
               alignItems="center"
+              className={classes.bg}
               spacing={3}
         >
             <Grid
                 item
-                xs={12}>
+                xs={12}
+            >
                 <Typography
                     align="left"
                     variant="h4"
-                    style={{marginTop: 10, fontWeight: 500}} >Recent News</Typography>
+                    style={{marginTop: 10, fontWeight: 500}}
+                >
+                    Recent News
+                </Typography>
             </Grid>
             {
                 posts.map((post, index) =>
