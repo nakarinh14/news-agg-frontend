@@ -32,6 +32,14 @@ const useStyles = makeStyles((theme) => ({
         marginRight: 0,
     }
 }))
+const sendHistory = (e, id, url) => {
+    e.preventDefault();
+    axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/news/history`,
+        {news_id: id, timestamp: new Date()},
+        {withCredentials: true})
+        .finally(() => {window.open(url, "_blank")})
+}
+
 
 function NewsCard(props) {
 
@@ -39,12 +47,10 @@ function NewsCard(props) {
     const data = props.newsData;
     const [hoverState, setHover] = useState(false)
     const [bookmarkState, setBookmark] = useState(data.bookmark_id)
+
     const postBookmark = (route, cond) => {
         axios.post(`${process.env.REACT_APP_BACKEND_URL}${route}`,
-            {
-
-                news_id: data.id
-            }, {withCredentials: true})
+            {news_id: data.id}, {withCredentials: true})
             .then(() => {
                 setBookmark(cond);
             })
@@ -60,6 +66,7 @@ function NewsCard(props) {
             postBookmark('/api/news/bookmark/remove', false);
         }
     }
+
     return (
         <Card
             className={classes.root}
@@ -81,7 +88,7 @@ function NewsCard(props) {
                             className={classes.thaiFont}
                             gutterBottom
                         >
-                            <Link target="_blank" href={"/article/"+data.id} color="inherit">
+                            <Link onClick={e => sendHistory(e, data.id, data.url)} color="inherit" href={data.url}>
                                 {data.title}
                             </Link>
                         </Typography>
