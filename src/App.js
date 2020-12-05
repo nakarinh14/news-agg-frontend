@@ -12,8 +12,7 @@ import RedirectArticle from "./routes/RedirectArticle";
 import History from "./routes/History";
 import Bookmark from "./routes/Bookmark";
 import PrivateRoute from "./components/PrivateRoute";
-import {ThemeProvider} from "@material-ui/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { ThemeProvider } from '@material-ui/core/styles';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -25,9 +24,8 @@ function App() {
     const classes = useStyles();
     const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"))
     const [authReduced, dispatch] = useReducer(authReducer, {state:  isAuthenticated});
-    const mediaDarkMode = useMediaQuery('(prefers-color-scheme: dark)')
     const [prefersDarkMode, setDarkMode] = useState(
-        JSON.parse(localStorage.getItem("dark_mode")) || mediaDarkMode
+        JSON.parse(localStorage.getItem("dark_mode")) ? true : false
     );
 
     const toggleTheme = () => {
@@ -54,7 +52,7 @@ function App() {
                 <Grid>
                     <AuthStateContext.Provider value={{authReduced, dispatch}}>
                         <Switch>
-                            <Route path="/article/:id">
+                            <Route path="/article/:id/:url">
                                 <RedirectArticle />
                             </Route>
                             <Route path="*">

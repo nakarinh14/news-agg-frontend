@@ -4,10 +4,17 @@ import Grid from "@material-ui/core/Grid";
 import {Typography} from "@material-ui/core";
 import date_util from "../utilities/date_util";
 import NewsCardSm from "../components/feed/NewsCardSm";
+import {makeStyles} from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        backgroundColor: theme.palette.background.default
+    },
+}));
 
 function History(){
     const [posts, setPosts] = useState([]);
-
+    const classes = useStyles();
     useEffect(() => {
         const fetchHistory = () => {
             const current_date = new Date();
@@ -31,6 +38,7 @@ function History(){
               direction="column"
               alignItems="center"
               spacing={3}
+              className={classes.root}
         >
             <Grid
                 item
