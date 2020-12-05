@@ -12,10 +12,6 @@ const useStyles = makeStyles(() => ({
         alignItems: 'center',
         justifyContent: 'center',
         outline: 0,
-        backdropFilter: "blur(1px)" // too slow...
-    },
-    backdrop:{
-
     }
 }));
 

@@ -16,10 +16,11 @@ const useStyles = makeStyles((theme) => ({
         flexGrow: 1,
     },
     appBar: {
-        backgroundColor: theme.palette.background.default,
+        backgroundColor: theme.palette.background.paper,
         zIndex: theme.zIndex.drawer + 1,
     },
     title: {
+        color: theme.palette.text.primary,
         flexGrow: 1,
     },
     tuneOption: {
@@ -27,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-function Header() {
+function Header(props) {
     const classes = useStyles();
     const [open, setOpen] = useState(true);
     const [openFilter, setOpenFilter] = useState(false);
@@ -58,13 +59,14 @@ function Header() {
                     <IconButton
                         edge="start"
                         className={classes.menuButton}
-                        color="inherit"
                         aria-label="menu"
                         onClick={toggleDrawer}
                     >
                         <MenuIcon/>
                     </IconButton>
-                    <Typography variant="h6" className={classes.title}>
+                    <Typography
+                        variant="h6"
+                        className={classes.title}>
                         News
                     </Typography>
 
@@ -75,6 +77,7 @@ function Header() {
                     </IconButton>
                     <IconButton
                         className={classes.tuneOption}
+                        onClick={props.toggleTheme}
                     >
                         <NightsStayIcon/>
                     </IconButton>
