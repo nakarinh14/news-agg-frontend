@@ -8,20 +8,21 @@ import {Redirect, Switch, Route} from "react-router-dom";
 import Temp from "./routes/Temp"
 import CssBaseline from "@material-ui/core/CssBaseline";
 import {authReducer, AuthStateContext} from "./utilities/auth_util";
-import RedirectArticle from "./routes/RedirectArticle";
 import History from "./routes/History";
 import Bookmark from "./routes/Bookmark";
 import PrivateRoute from "./components/PrivateRoute";
 import { ThemeProvider } from '@material-ui/core/styles';
+import Signup from "./routes/Signup";
 
 const useStyles = makeStyles((theme) => ({
     root: {
         backgroundColor: theme.palette.background.default,
-    },
+    }
 }));
 
 function App() {
     const classes = useStyles();
+    console.log(classes.all)
     const isAuthenticated = JSON.parse(localStorage.getItem("isAuthenticated"))
     const [authReduced, dispatch] = useReducer(authReducer, {state:  isAuthenticated});
     const [prefersDarkMode, setDarkMode] = useState(
@@ -52,9 +53,6 @@ function App() {
                 <Grid>
                     <AuthStateContext.Provider value={{authReduced, dispatch}}>
                         <Switch>
-                            <Route path="/article/:id/:url">
-                                <RedirectArticle />
-                            </Route>
                             <Route path="*">
                                 <Grid>
                                     <Header toggleTheme={toggleTheme} />
@@ -65,6 +63,9 @@ function App() {
                                     </Route>
                                     <Route path="/hot">
                                         <Temp />
+                                    </Route>
+                                    <Route path="/register">
+                                        <Signup />
                                     </Route>
                                     <PrivateRoute path="/bookmarks">
                                         <Bookmark />

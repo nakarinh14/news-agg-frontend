@@ -12,6 +12,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import axios from "axios";
 import {useAuthStateContext} from "../../../utilities/auth_util";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
     container: {
@@ -35,12 +36,20 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
+    errorNotice: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+    }
 }));
 
 function Login() {
     const classes = useStyles();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setError] = useState("")
+
+    const history = useHistory()
     const handleChangePassword = e => {
         setPassword(e.target.value)
     }
@@ -49,6 +58,7 @@ function Login() {
     }
     const authStateContext = useAuthStateContext()
     const postLogin = () => {
+        setError("")
         axios.post(`${process.env.REACT_APP_BACKEND_URL}/auth/login`,
             {
                 username: username,
@@ -56,15 +66,26 @@ function Login() {
                }, {withCredentials: true})
             .then(() => {
                 authStateContext.dispatch({type: 'LOGIN'})
-                window.location.reload(false);
+                history.push('/recent')
             })
             .catch(err => {
-                console.log(err)
+                if(err.response === undefined){
+                    setError("Ops. Please try again later")
+                }
+                else if(err.response.status === 401){
+                    setError("Incorrect password")
+                }
             })
     }
     return (
         <Container component="main" maxWidth="xs" className={classes.container}>
             <div className={classes.paper}>
+                <Typography
+                    color="error"
+                    className={classes.errorNotice}
+                >
+                    {errorMessage}
+                </Typography>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
@@ -112,14 +133,10 @@ function Login() {
                     >
                         Sign In
                     </Button>
+
                     <Grid container>
-                        <Grid item xs>
-                            <Link href="#" variant="body2">
-                                Forgot password?
-                            </Link>
-                        </Grid>
                         <Grid item>
-                            <Link href="#" variant="body2">
+                            <Link href={"/register"} variant="body2" color="inherit">
                                 {"Don't have an account? Sign Up"}
                             </Link>
                         </Grid>
