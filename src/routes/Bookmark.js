@@ -4,9 +4,17 @@ import Grid from "@material-ui/core/Grid";
 import {Typography} from "@material-ui/core";
 import date_util from "../utilities/date_util";
 import NewsCardBookmark from "../components/feed/NewsCardBookmark";
+import {makeStyles} from "@material-ui/core/styles";
 
-function Bookmark(){
+const useStyles = makeStyles((theme) => ({
+    root: {
+        backgroundColor: theme.palette.background.default
+    }
+}));
+
+function Bookmark() {
     const [posts, setPosts] = useState([]);
+    const classes = useStyles();
 
     useEffect(() => {
         const fetchHistory = () => {
@@ -27,10 +35,12 @@ function Bookmark(){
     }, [])
 
     return (
-        <Grid container
-              direction="column"
-              alignItems="center"
-              spacing={3}
+        <Grid
+            container
+            direction="column"
+            alignItems="center"
+            className={classes.root}
+            spacing={3}
         >
             <Grid
                 item
@@ -38,7 +48,7 @@ function Bookmark(){
                 <Typography
                     align="left"
                     variant="h4"
-                    style={{marginTop: 10, fontWeight: 500}} >Bookmarks</Typography>
+                    style={{marginTop: 10, fontWeight: 500}}>Bookmarks</Typography>
 
             </Grid>
             {
@@ -48,7 +58,7 @@ function Bookmark(){
                         key={index}
                         xs={12}
                     >
-                        <NewsCardBookmark newsData={post} />
+                        <NewsCardBookmark newsData={post}/>
                     </Grid>
                 )
             }

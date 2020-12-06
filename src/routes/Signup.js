@@ -1,19 +1,17 @@
 import React, {useState} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
+import {makeStyles} from '@material-ui/core/styles';
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
+    container: {
+        backgroundColor: theme.palette.background.default
+    },
     paper: {
         marginTop: theme.spacing(8),
         display: 'flex',
@@ -35,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SignUp() {
     const classes = useStyles();
-
+    const [errorMessage, setError] = useState("")
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const handleChangePassword = e => {
@@ -51,22 +49,43 @@ export default function SignUp() {
                 password: password
             }, {withCredentials: true},)
             .then(() => {
-                window.location.reload(false);
+                setError("Registered successful")
             })
             .catch(err => {
+                if(err.response === undefined){
+                    setError("Ops! Please try again later")
+                }
+                else if(err.response.status === 400){
+                    setError("Ops! Username already exists, try a different one")
+                }
                 console.log(err)
             })
     }
 
     return (
-        <Container component="main" maxWidth="xs">
-            <CssBaseline />
-            <div className={classes.paper}>
+        <Grid
+            container
+            component="main"
+            maxWidth="xs"
+            className={classes.container}
+        >
+            <Grid item xs={4}/>
+            <Grid
+                className={classes.paper}
+                item
+                xs={4}
+            >
                 <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
+                    <LockOutlinedIcon/>
                 </Avatar>
                 <Typography component="h1" variant="h5">
                     Sign up
+                </Typography>
+                <Typography
+                    color={errorMessage === "Registered successful" ? "error" : "success"}
+                    className={classes.errorNotice}
+                >
+                    {errorMessage}
                 </Typography>
                 <form className={classes.form} noValidate>
                     <Grid container spacing={2}>
@@ -97,12 +116,6 @@ export default function SignUp() {
                                 autoComplete="current-password"
                             />
                         </Grid>
-                        <Grid item xs={12}>
-                            <FormControlLabel
-                                control={<Checkbox value="allowExtraEmails" color="primary" />}
-                                label="I want to receive inspiration, marketing promotions and updates via email."
-                            />
-                        </Grid>
                     </Grid>
                     <Button
                         type="button"
@@ -114,15 +127,9 @@ export default function SignUp() {
                     >
                         Sign Up
                     </Button>
-                    <Grid container justify="flex-end">
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                Already have an account? Sign in
-                            </Link>
-                        </Grid>
-                    </Grid>
                 </form>
-            </div>
-        </Container>
+            </Grid>
+            <Grid item xs={4} />
+        </Grid>
     );
 }

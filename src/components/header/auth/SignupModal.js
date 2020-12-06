@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { useSpring, animated } from 'react-spring/web.cjs';
 import {Button} from "@material-ui/core";
 import Dialog from "@material-ui/core/Dialog";
-import Signup from "./Signup"; // web.cjs is required for IE 11 support
+import Signup from "../../../routes/Signup"; // web.cjs is required for IE 11 support
 
 const useStyles = makeStyles(() => ({
     dialog: {

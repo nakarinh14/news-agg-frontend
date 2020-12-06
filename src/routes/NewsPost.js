@@ -6,19 +6,23 @@ import {Typography} from "@material-ui/core";
 import date_util from "../utilities/date_util";
 import getFilterPublishers from "../utilities/filters_util";
 import {makeStyles} from "@material-ui/core/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 // import CircularProgress from "@material-ui/core/CircularProgress";
 
 const useStyles = makeStyles((theme) => ({
     bg: {
         backgroundColor: theme.palette.background.default
     },
+    loading: {
+        color: theme.palette.primary.main
+    }
 }));
-
 
 function NewsPost() {
     const classes = useStyles();
     const [posts, setPosts] = useState([])
     const [page, setPage] = useState(1);
+    const [isLoading, setLoading] = useState(true)
     const loader = useRef(null);
 
     const handleObserver = (entities) => {
@@ -47,6 +51,7 @@ function NewsPost() {
 
     useEffect(() => {
         const fetchNews = () => {
+            setLoading(true)
             const current_date = new Date();
             axios.get(`${process.env.REACT_APP_BACKEND_URL}/api/news`,
                 {params: {publishers: getFilterPublishers() , page: page, limit: 20}, withCredentials: true}
@@ -58,6 +63,9 @@ function NewsPost() {
                 })
                 .catch(err => {
                     console.log(err)
+                })
+                .finally(() => {
+                    setLoading(false)
                 })
         }
         fetchNews();
@@ -93,6 +101,9 @@ function NewsPost() {
                     </Grid>
                 )
             }
+            <Grid item>
+                {isLoading ? <CircularProgress className={classes.loading} /> : null}
+            </Grid>
             <div ref={loader} />
         </Grid>
     );
