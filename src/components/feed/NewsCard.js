@@ -34,10 +34,11 @@ const useStyles = makeStyles((theme) => ({
 }))
 const sendHistory = (e, id, url) => {
     e.preventDefault();
+    window.open(url, "_blank")
     axios.post(`${process.env.REACT_APP_BACKEND_URL}/api/news/history`,
         {news_id: id, timestamp: new Date()},
         {withCredentials: true})
-        .finally(() => {window.open(url, "_blank")})
+        .then(() => {})
 }
 
 
@@ -49,11 +50,11 @@ function NewsCard(props) {
     const [bookmarkState, setBookmark] = useState(data.bookmark_id)
 
     const postBookmark = (route, cond) => {
+        // if signed in, instantaneous do this.
+        setBookmark(cond);
         axios.post(`${process.env.REACT_APP_BACKEND_URL}${route}`,
             {news_id: data.id}, {withCredentials: true})
-            .then(() => {
-                setBookmark(cond);
-            })
+            .then(() => {})
             .catch(err => {
                 console.log(err)
             })
